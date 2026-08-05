@@ -117,3 +117,25 @@ Os tipos de requisição HTTP indicam a ação que o usuário deseja executar no
 ##### Instalando o PHP
 
 - Fazer o Download do PHP (php.net);
+- ZIP - Non Thread Safe 8.5
+- Descompactar o Arquivo do PHP na pasta C:\src\php (para descompactar, usar 7Zip = melhor)
+- Modificar o arquivo php.ini-development para => php.ini ( criar as configurações de PHP na Máquina ) - adicionar ou remover funcionalidades do php
+- Adicionar a Pasta do PHP(C:\src\php) as Variáveis de Ambiente do Sistema (PATH)
+- Para verificar a instalação rodando o comando php --version no cmd
+
+##### Contextualizando o PHP
+
+O PHP de fato é uma das linguagens de programação mais populares da atualdade. Ela permite que você crie aplicações web robustas, de uma maneira mais simplificada e direto ao ponto. Sem contar que a linguagem trás diversos recursos que facilitam e aceleram o processo web. E além do mais, ela ainda tem um ótimo ecossistema, uma excelente comunidade, e um grande mercado de trabalho. 
+
+#### Criando Minha Primeira Aplicação em PHP 
+
+Criando um Hello. World!
+
+#### Criando Perfil de PHPVanilla
+
+-> Profile -> New Profile
+-> Extensions: 
+- PHP InterPhense ( A do Elefantinho ): AutoCompletar (Snipets)
+- PHP Debug (Xdebug): Acha Erros em Linhas de Códigos
+- PHP CS FIXER: Formatação Padrão do Código (Identação)
+- PHP Server : Sobe um Servidor de Acompanhamento em Tempo real
