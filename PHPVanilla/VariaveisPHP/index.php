@@ -1,3 +1,7 @@
+<?php 
+//evita problemas de concatenação:
+declare(strict_types=1);
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -9,6 +13,7 @@
     <h1>Estudo de Variáveis</h1>
     <hr>
     <?php 
+
     // para criar variáveis em php bata usar o sinal de $
     // variáveis em php são NÃO tipadas, NÃO precisa declarar o tipo (Texto, numeros, booleanas)
     // ao atribuir valor para a variável a tipagem é automática
@@ -36,7 +41,7 @@
     //Constantes são representadas pela palavra "const" ou "define" seguidas do nome da constante 
     //Exemplos de constantes:
     
-    const PI = 3,14; //Constante do tipo number (float)
+    const PI = 3.14; //Constante do tipo number (float)
     const EMPRESA = "Google"; //Constante do tipo string
     define("SITE", "www.google.com"); //Declaração de Constante do tipo string usando "define"
 
@@ -53,12 +58,19 @@
     // redeclarar uma constante também irá gerar um erro:
     // const SITE = "www.google.com.br"; //Isso é um Erro
 
+    //REGRA DE OURO: Sempre coloque a instrução "declare(strict_types=1);" no inicio do seu codigo PHP, isso blindará seu sistema contra concatenações acidentais de tipos de dados
 
-    //Tentar 
-    
+    //Utilização de Texto (Concatenação Vs Interpolação)
+
+    // Exemplo de Concatenação => Juntar duas ou mais strings (texto) utilizando o operador "." (ponto)
+    echo "Olá, " .$nome . "! Seja bem-vindo ao nosso site! <br>!";
+
+    // Exemplo de Interpolação => Utilização de variáveis dentro de um texto, utilizando aspas duplas no texto
+    echo "$nome, tem $idade anos e seu salário é de R$ $salario reais. <br>"; // Forma mais correta de misturar texto e variáveis
+
 
     ?>
 
-    
+
 </body>
 </html>
