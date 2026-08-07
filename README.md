@@ -125,7 +125,7 @@ Os tipos de requisição HTTP indicam a ação que o usuário deseja executar no
 
 ##### Contextualizando o PHP
 
-O PHP de fato é uma das linguagens de programação mais populares da atualdade. Ela permite que você crie aplicações web robustas, de uma maneira mais simplificada e direto ao ponto. Sem contar que a linguagem trás diversos recursos que facilitam e aceleram o processo web. E além do mais, ela ainda tem um ótimo ecossistema, uma excelente comunidade, e um grande mercado de trabalho. 
+O PHP de fato é uma das linguagens de programação mais populares da atualidade. Ela permite que você crie aplicações web robustas, de uma maneira mais simplificada e direto ao ponto. Sem contar que a linguagem trás diversos recursos que facilitam e aceleram o processo web. E além do mais, ela ainda tem um ótimo ecossistema, uma excelente comunidade, e um grande mercado de trabalho. 
 
 #### Criando Minha Primeira Aplicação em PHP 
 
