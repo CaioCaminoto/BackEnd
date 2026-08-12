@@ -157,9 +157,11 @@ Declarar variáveis é alocar um espaço na memoria que permite a inclusão e ma
 - pode ser criada usando "const" ou "define"
 - não permitem interpolação
 
+### Semana 2 - Operadores em PHP (Aritméticos, Relacionais e Lógicos)
+
 ### Estudo de Operadores
 
-**Aritméticos**: São usados para realizar cálculos.
+**Aritméticos**: São usados para realizar *cálculos*.
 
 | Operador | Nome | Exemplo | Resultado |
 | - | - | - | - |
@@ -172,7 +174,7 @@ Declarar variáveis é alocar um espaço na memoria que permite a inclusão e ma
 
 Obs: O operador % é o melhor amigo de um programador, permite ordenar listas e organizar fila (ordem de chegada, ex: fila) e pilhas (por empilhamento as mais altas antes ex: garrafa por baixo e coisas acima aonde as coisas acima tem que sair antes para não entrar em colapso)
 
-**Relacionais**: Permitem uma comparação entre dois ou mais valores, o 
+**Relacionais**: Permitem uma *Comparação* entre dois ou mais valores, o  resultado de uma operação relacional é sempre uma booleana (true , false)
 
 | Nomes | Operador | Exemplo | Resultado |
 | - | - | - | - |
@@ -185,9 +187,9 @@ Obs: O operador % é o melhor amigo de um programador, permite ordenar listas e 
 | Maior ou Igual | >= | 18 >= 18 | true |
 | Menor ou igual | <= | 10 <= 5 | false |
 
-**Lógicos**: Permite a Combinação entre sentenças.
+**Lógicos**: Permite a *Combinação* entre sentenças.
 
-- Operador AND (E) => && : para o resultado se verdaddeiro, TODAS as Combinações precisam ser verdadeiras
+- Operador AND (E) => && : para o resultado ser verdadeiro, TODAS as Combinações precisam ser verdadeiras
     - true && true => true
     - true && false => false
 
@@ -198,3 +200,106 @@ Obs: O operador % é o melhor amigo de um programador, permite ordenar listas e 
 - Operador NOT (Não) => ! : Inverte a lógica da Sentença
     - !true => false
     - !false => true
+
+### Semana 3 - Estrutura de Controle de Dados ( Condicionais e Repetição) 
+
+- **Conteúdo**: Estruturas `if`, `else`, `elseif`, operadores ternários, `match`, loops `for`, `while`, `do-while` e `foreach`
+
+##### Condicionais (IF, ELSE, ELSEIF)
+
+- **Forma de Uso**:
+
+Uso do `if` apenas  
+Exemplo: aplicar um desconto de 10% em comrpas acima de 100 Reais;
+
+```mermaid
+
+graph LR
+    A[Comando] --> B[Condição] --> C[Tomada de Decisão]
+
+```
+
+```php
+if ($valorCompra > 100) {
+    $valorCompra = $valorCompra * 0.1
+}
+```
+
+- Uso do `if` e do `else`
+Exemplo: Aplicar um desconto de 10% para compras acima de 100 reais e 5% para as demais compras
+
+```mermaid
+
+    graph LR
+
+    A[Comando] --> B{Condição}
+    B --> |true| C[Ação 1]
+    B --> |false| D[Ação 2]
+
+```
+```php 
+
+if($valorCompra > 100){
+    $valorFinal = $valorCompra * 0.1;
+
+else {
+    $valorFinal = $valorCompra * 0.05;
+}
+```
+-Uso do `elseif` (Encadeado)
+Exemplo: Compras acima de 200 reais tem 15% de desconto, acima de 100 reais tem 10% e outras 5% de desconto
+
+```mermaid
+graph LR
+    A[Comando] --> B{Condição 1}
+    B --> |true| C[Ação 1]
+    B --> |false| D{Condição 2}
+    D --> |true| E[Ação 2]
+    D --> |false| F[Ação 3]
+```
+```php 
+
+if($valorCompra > 200){
+    $valorFinal = $valorCompra*0.85;
+} elseif($valorCompra >100) {
+    $valorFinal - $valorCompra*0.9;
+} else {
+    $valorFinal = $valorCompra*0.95;
+}
+
+```
+*Obs:* sempre usar `elseif` para situações que precisam de mais de uma condição, ou seja, fazer o encadeamento das condiçõe (uma condição dependendo da outra).
+
+#### Operadores Ternários
+Um atalho para a estrutura condicional `ìf/else`, normalmente descrito em uma unica linha de código
+
+` condição ? verdadeira : falso `
+
+Perfeito para decisões curtas de uma linha de comando 
+Exemplo: verificar se a pessoa é maior é maior de idade (18)
+
+```php 
+
+$idade = 20; 
+// O formato é: (Condição) ? Verdadeiro : falso;
+
+$status = ($idade >= 18) ? "Maior de idade" : "Menor de idade";
+
+```
+
+#### Expressão `match` (PHP 8)
+
+No mercado de php atual não se usa mais de uma dezena de `ìf/elseif` para checar valores fixos, e o antigo `Switch/case` caiu em desuso. Usamos o `match`. Ele compara um valor e retorna diretamente o resultado.
+
+```mermaid
+
+graph LR
+    A[valor] --> B{Condicional}
+    B --> C[Ação 1]
+    B --> D[Ação 2]
+    B --> E[Ação 3]
+    B --> F[Ação 4]
+    B --> G[...]
+    B --> H[default]
+
+```
