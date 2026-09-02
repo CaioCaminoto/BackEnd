@@ -406,10 +406,318 @@ do {
     $tentativa = rand(1,10); //Simular um palpite aleatório
 
     if($tentativa == $numeroSecreto){
-        echo "Parabéns, Acertou!!
+        echo "Parabéns, Acertou!!!";
     }
-    
+  
+} while ($tentativa != $numeroSecreto);
 
+```
+
+obs: Uso Idela do `do-while`, Menus de sistema ou sistema de solicitações de dados, sistemas interativos;
+
+---
+
+
+##### O Freio de Emergência: `break` e `continue`
+
+As vezes precisamoso interferir no laço enquanto ele está rodando 
+
+- `break`=> **Para Tudo!** Quebra o laço inteiro e vai embora.
+- `continue` => **Pula a rodada!** Ele ignora o código daquela rodada especifica e pula logo par a próxima repetição.
+
+Exemplo de Aplicação do Código: Sistema de Controle do Elevador
+
+```php 
+
+for($andar = 1 ; $andar<=10; $andar++){
+    if($andar ==4){
+        echo "Andar $andar está em obras. Passando direto!";
+        continue;
+    }
+
+    echo "Elevador parou no andar $andar"
 }
 
 ```
+---
+
+##### Laço de Repetição `for` 
+
+Use o `for` quando você sabe quantas vezes precisa repetir uma ação ou quando precisa controlar um contador. Ele possui 3 partes:
+
+-Inicialização
+-Condição 
+-incremento
+
+for(inicialização, condição, incremento){
+    ação
+}
+
+```mermaid 
+flowchart LR 
+A[ínicio i=0] --> B{i<10?}
+B --true--> C[Ação]
+C --> D[i++]
+B --false--> E[FIM]
+```
+
+Exemplo de Aplicação: Exibir todos os Meses do ano
+```php
+for($mes=1, $mes<=12, $mes++){
+    echo "Mês: $mes
+};
+
+Nesse Exemplo, `$mes`começa em 1, o laço continua enquanto `$mes`for menor ou igual a 12 e, ao final de cada repetição, `$mes` aumeta o contador em 1 até mês ser igual a 12.
+```
+
+#### Laço de Repetição `foreach`
+
+Use o `foreach` quando precisar percorrer cada item de um **array**. Ele acessa os elementos diretamente, sem que você precise controlar o contador.
+
+Exemplo: Imprimir todos os itens de um vetor.
+```php
+$frutas = ["Maca", "Banana", "Uva", "Banana"];
+
+foreach($frutas as $fruta){
+    echo "Fruta: $fruta";
+}
+```
+
+Outro Exemplo: Acessar a chave e cada valor de cada item: 
+
+```php
+$precos = [
+    "Caderno" => 25.00,
+    "Caneta" => 5.50,
+    "Mochila" => 99.00
+]; // Vetor ordenado do tipo Chave(Key) => Valor(Value) ===> Coleção/Dicionário
+
+//Percorrer o vetor usando o laço Foreach
+foreach($precos as $produtos => $preco){
+    echo "$produto: R$". number_format($preco,2);
+}
+// Acessa a chave e o valor de cada item do vetor
+```
+
+---
+---
+
+#### Desafio: Simulador de Finança (FINANSENAI)
+
+#### Desafio HTML
+
+---
+---
+
+### Semana 4 - Modularizações com Funções
+
+#### Príncipio do DRY (Don´t Repeat Yourself)
+
+Se uma lógica foi escrita duas ou mais vezes dentro de um código, essa lógica deve virar uma função.
+
+#### Funções Nativas do PHP
+
+O PHP tem milhares de funções prontas, essa função já criada é chamada de função nativa.
+
+-**O que é uma Função?**
+
+Uma função é como uma máquina: você coloca a matéria-prima (Parâmetro), ela processa e devolve um produto final (Retorno)
+
+Exemplo de Função Nativa
+
+```php
+$texto = "senai americana"
+
+// Usar uma função nativa para substituição de parte do texto ==> str_replace 
+$textoNovo = str_replace("americana", "são paulo",
+$texto);
+// "senai são paulo"
+
+//usar uma função nativa para substituição das letras minúsculas por letras maiúsculas => strtoupper
+echo strtoupper($textoNovo)// SENAI SÃO PAULO
+```
+
+#### Principais Funções Nativas (Mais Utilizadas)
+
+As funções abaixo já fazem parte do PHP e podem ser chamadas diretamente no código. Observe os parâmetros que cada uma recebe e o tipo de informação que ela retorna.
+
+| Função | Categoria | O que faz | Como usar |
+|---|---|---|---|
+
+| `strlen()` | Strings | Retorna a quantidade de caracteres de um texto. | `$tamanho = strlen($texto);` |
+
+| `strtoupper()` | Strings | Converte o texto para letras maiúsculas. | `$resultado = strtoupper($texto);` |
+
+| `strtolower()` | Strings | Converte o texto para letras minúsculas. | `$resultado = strtolower($texto);` |
+
+| `ucfirst()` | Strings | Converte a primeira letra do texto para maiúscula. | `$resultado = ucfirst($texto);` |
+
+| `trim()` | Strings | Remove espaços e quebras de linha no início e no fim do texto. | `$limpo = trim($texto);` |
+
+| `str_replace()` | Strings | Substitui uma parte do texto por outra. | `$novo = str_replace("-", "", $cpf);` |
+
+| `substr()` | Strings | Extrai uma parte do texto a partir de uma posição. | `$inicio = substr($texto, 0, 3);` |
+
+| `explode()` | Strings | Divide um texto e cria um array usando um separador. | `$palavras = explode(" ", $nome);` |
+
+| `implode()` | Arrays | Junta os itens de um array em um único texto. | `$lista = implode(", ", $nomes);` |
+
+| `count()` | Arrays | Conta a quantidade de itens de um array. | `$total = count($produtos);` |
+
+| `in_array()` | Arrays | Verifica se um valor existe dentro de um array. | `$existe = in_array("SP", $estados, true);` |
+
+| `array_push()` | Arrays | Adiciona um ou mais itens ao final de um array. | `array_push($nomes, "Ana");` |
+
+| `array_pop()` | Arrays | Remove e retorna o último item de um array. | `$ultimo = array_pop($nomes);` |
+
+| `sort()` | Arrays | Ordena um array em ordem crescente e reorganiza suas chaves. | `sort($notas);` |
+
+| `array_keys()` | Arrays | Retorna um array contendo as chaves de outro array. | `$chaves = array_keys($produtos);` |
+
+| `number_format()` | Números | Formata um número com casas decimais e separadores definidos. | `$preco = number_format($valor, 2, ',', '.');` |
+
+| `round()` | Números | Arredonda um número para a quantidade de casas informada. | `$media = round($nota, 2);` |
+
+| `max()` | Números | Retorna o maior valor de uma lista ou array. | `$maior = max($notas);` |
+
+| `min()` | Números | Retorna o menor valor de uma lista ou array. | `$menor = min($notas);` |
+
+| `is_numeric()` | Validação | Verifica se o valor é um número ou uma string numérica. | `if (is_numeric($entrada)) { ... }` |
+
+| `isset()` | Validação | Verifica se uma variável existe e não possui valor `null`. | `if (isset($usuario)) { ... }` |
+
+| `empty()` | Validação | Verifica se uma variável está vazia. | `if (empty($pedido)) { ... }` |
+
+| `date()` | Data e hora | Formata uma data ou hora conforme uma máscara. | `$hoje = date('d/m/Y');` |
+
+| `file_exists()` | Arquivos | Verifica se um arquivo ou diretório existe. | `if (file_exists('dados.txt')) { ... }` |
+
+| `file_get_contents()` | Arquivos | Lê todo o conteúdo de um arquivo ou endereço. | `$conteudo = file_get_contents('dados.txt');` |
+
+| `file_put_contents()` | Arquivos | Grava conteúdo em um arquivo, criando-o se necessário. | `file_put_contents('log.txt', $mensagem);` |
+
+**Atenção:** algumas funções modificam o array original, como `sort()`, `array_push()` e `array_pop()`. Já outras retornam um novo valor, como `count()`, `explode()` e `str_replace()`. Em caso de dúvida, consulte a documentação oficial do PHP e verifique o retorno da função.
+
+
+##### Documentação PHP
+
+[Acesse a documentação oficial do PHP em português](https://www.php.net/manual/pt_BR/)
+
+Consulte também a [referência de funções do PHP em ](https://www.php.net/manual/pt_BR/funcref.php) para pesquisar a sintaxe, os parâmetros e os valores para cada função.
+
+#### Funções Customizadas (Criando suas próprias máquinas)
+
+Quando o PHP não tem a função que queremos, nós a criamos!
+
+**A Regra de Ouro**: Uma função deve focar em `return` (retornar um valor), e não imprimir (`echo`).
+
+Veja a Diferença nesse exemplo: 
+
+```php
+function calcularTotal($preco,$quantidade){
+    // a função calcula e retorna o resultado, mas não imprimi nada 
+    return $preco * $quantidade;
+}
+
+$total = calcularTotal(25.00, 3);
+
+//Imprimir é feito fora da função
+echo "Total da Compra é: R$". round($total,2);
+//Toal da Compra é: R$75.00
+```
+A função `calcularTotal()`pode ser reutilizada em uma página, relatório ou teste. O `echo` aparece somente fora da função, no momento de apresentar o resultado para o usuário.
+
+##### Padrão de Uso Corporativo ( PHP 8 Strict Types)
+
+No mercado de trabalho exigimos que a função avise exatamente o **TIPO** de dado que ela espera receber e o **TIPO** de dado que ela vai devolver.
+
+Isso é chamado de **Tipagem de Funções**. Ao declara os tipos, o código fica mais fácil de entender e o PHP consegue identificar alguns erros antes que eles causem problemas maiores no sistema.
+
+Os tipos mais usados:
+
+*`int`: número inteiro, `10` ou `1024`;
+*`float`: número decimal ou pontos flutuantes, `10.90` --decimal;
+*`string`: texto, como ``Maria`;
+*`bool`: valor lógico, `true` ou `false`;
+*`void`: identifica que a função não devolve nenhum valor;
+
+O tipo deve ser escrito antes do nome de cada parâmetro e o tipo da função deve ser escrita após os parênteses, precedido do ":", informando oque a função vai devolver
+
+Exemplo do uso de função e parâmetros tipados:
+
+```php
+function apresentarProduto(string $nome, float $preço): string{
+    return "$nome custa R$ $preco";
+}
+
+$mensagem = apresentarProduto("Caderno",25.00);
+echo $mensagem
+//Caderno custa 25.00
+```
+
+>**Resumo**: os tipos dos parâmetros documentam as entradas da função, o tipo após `:` documenta a saída da função.
+
+#### O Típo Mágico: `VOID`
+
+se uma função faz um trabalho interno e **não retorna NADA**, dizemos que o retorno dela é "vázio" (`void`).
+
+Exemplo de função sem retorno
+
+```php
+function registralog(string $mensagem): void{
+    //apenas salva em um arquivo de texto, não devolve nenhuma variável 
+    file_put_contents("erro.log", $mensagem);
+}
+```
+
+#### Escopo e Referencia (O Segredo da Memória)
+
+##### O que é Escopo? ( A Regra de Las Vegas)
+
+*O que acontece dentro da função fica dentro da função*. Uma variável criada fora não existe la dentro (criada global), e uma criada lá dentro morre quando a função acaba (criada local).
+
+**Escopo** é o local do programa aonde a variável pode ser armazenada/acessada. Em PHP, uma variável criada fora de uma função pertence ao *escopo global*, uma variável criada dentro de uma função pertence ao *escopo local*.
+
+Exemplo de Escopo de Variável:
+
+```php
+$nomeSistema = "CRM SENAI"; //Variável Global
+
+function criarMensagem(string $nome): string {
+    $mensagem = "Bem Vindo!";
+    return $mensagem . $nome
+}
+echo $nomeSistema; // Correto: está no escopo global fora da função
+echo $mensagem; //Errado: só existe dentro da função de maneira local, não é possivel de ser acessada fora 
+echo criarMensagem("Nome da mensagem"); // Correto: a função foi chamada assim ele consegue devolver sua variável local
+//CRM SENAI
+//Bem Vindo! Nome da mensagem
+```
+
+**Como Enviar Dados Para uma Função**
+
+A forma mais segura e organizada é enviar os dados por **Parâmetros**. Assim, a função não precisa acessar diretamente variáveis globais:
+
+```php
+
+function saudar(string $nome): string {
+    return "Olá, $nome!";
+}
+
+$nomeCliente = "João";
+echo saudar($nomeCliente); // Olá, João!
+```
+Nesse Caso  , `$nomeCliente` continua no escopo global, mas seu valor é enviado para o parâmetro local `$nome` na variável. A função recebe uma informação, processa e retorna o resultado.
+
+**Exemplo Incorreto:**
+
+```php
+$nome = João; //Variável global
+
+function saudar() : string {
+    return "Olá, $nome"; //Errado: a variável $nome está no global não há como chama-la para o local dentro da função
+}
+```
+A função `saudar()`não conhece a variável global `$nome`. Ocasionando um erro no sistema.
+
+> **Resumo**: variáveis protegem os dados internos da função; parâmetros são o caminho recomendado para evitar Erros e enviar Informações, e `return`é usado para devolver um resultado ao códgio que chamou a função.
