@@ -10,18 +10,18 @@ $produtos = [
     ['id' => 5, 'nome' => 'Mouse Logitech', 'categoria' => 'Perifericos', 'preco' => 450.00],
 ];
 
-
+// ==========================================
 // MISSÃO 1: Crie o filtro para isolar APENAS os Smartphones
+// ==========================================
+$smartphones = array_filter($produtos, fn($p) => $p["categoria"]==="Smartphone");
 
-// Usamos o operador === para garantir que o tipo e o texto sejam exatamente iguais
-$smartphones = array_filter($produtos, fn($p) => $p['categoria'] === 'Smartphone');
-
-
+// ==========================================
 // MISSÃO 2: Aplique 15% de desconto nos Smartphones
-
-to = array_map(function($p) {
-    $p['preco'] = $p['preco'] * 0.85; 
+// ==========================================
+    $smartphonesComDesconto = array_map(function($p){
+    $p["preco"] = $p["preco"]*0.85;
     return $p;
+  
 }, $smartphones);
 
 ?>
@@ -39,32 +39,37 @@ to = array_map(function($p) {
 </head>
 <body>
     <h2>Ofertas Especiais: Smartphones (15% OFF)</h2>
+    
+    <!-- MISSÃO 3: Crie o Laço FOREACH aqui e percorra a lista $smartphonesComDesconto -->
+   <?php foreach ($smartphonesComDesconto as $item): ?>
 
-    <?php foreach ($smartphonesComDesconto as $produto): ?>
-        
-        <div class="card">
+    <div class="card">
+        <span class="categoria">
+            <?= $item["categoria"] ?>
+        </span>
 
-            <span class="categoria"><?= $produto['categoria'] ?></span>
+        <h3>
+            <?= $item["nome"] ?>
+        </h3>
 
-            <h3>
-                <?= $produto['nome'] ?>
-            </h3>
+        <p class="preco">
+            R$ <?= number_format($item["preco"], 2, ',', '.') ?>
+        </p>
+    </div>
 
-            <p 
-            class="preco">R$ <?= number_format($produto['preco'], 2, ',', '.') ?>
-            </p>
+<?php endforeach; ?>
 
-        </div>
-
-    <?php endforeach; ?>
 
     <hr>
+    <!-- Área de Socorro (Debug) -->
     <h3>Ferramenta de Debug (Tudo que tem na memória):</h3>
     <pre>
         <?php 
-            print_r($smartphonesComDesconto); 
+            // Tire o comentário da linha abaixo para ver a mágica se precisar de ajuda
+            // print_r($smartphonesComDesconto); 
         ?>
     </pre>
 
 </body>
 </html>
+?>

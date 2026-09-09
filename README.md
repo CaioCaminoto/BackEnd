@@ -840,17 +840,53 @@ exibi com mais detalhes as informações de um array ou variável em PHP
 echo var_dump($frutas);
 //Mostra Tudo: tipo de dados, o tamanho e o valor 
 ```
+---
 
+### Semana 6 - Processamento HTTP e Formulários Web
 
+### Anatomia de um Formulário HTML para BackEnd
 
+Antes do PHP processar qualquer informação precisamos coletar informações no FrontEnd através de um `<form>` 
 
+** Exemplo de `<form>` HTML
 
+```html
+<form action="processa.php" method="POST">
+    <label>Nome Completo </label>
+    <input type="text" id="campoNome" name="nomeUsuario" placeholder="Digite seu nome">
+    <button type="submit">Cadastrar</button>
+</form>
+```
+**Os 3 Pilares do Formulário**
+1. action="processa.php" => O Destino: Define qual script PHP no servidor receberá os dados.
+2. method="POST" => O Transporte: Define a via de protocolo HTTP usada (GET ou POST).
+3. name="nomeUsuarios" => A Etiqueta do Dado: É o nome da chave que o PHP usará no array associativo ($POST["nomeUsuario"]).
 
+> obs: Nunca confundir `id` com `name` no imput, o PHP ignora o `ìd`.
 
+#### O Protocolo HTTP
 
+Quando o Usuário clica no botão `type="submit"`, o navegador compila todas as informações dos campos preenchidos e dispara um pacote de comunicação padronizado pelo **Protocolo HTTP(Hypertext Transfer Protocol)**
 
+**O Formato de TransferÊncia**
 
+- **Método GET**: solicitar informações públicas e realizar buscas, mas altamente arriscada para dados privados.
 
+- **Método POST**: As informações viaja, guardadas dentro do protocolo
 
+#### Testar uso do protocolo HTTP 
 
+OK 
+
+#### GET vs POST 
+
+1. O Método GET (Consultas e Filtros) --NA URL VISÍVEL
+
+O método `GET` é utilizado quando a intenção do cliente é **buscar ou filtrar dados** sem alterar o estado do servidor. Os dados enviados via `GET` são anexados diretamente ao final da URL na forma de **Query String** 
+
+2. O Método POST (Envio de Cargas Úteis e Mutações) --ESCONDIDO NO CÓDIGO
+
+O método `POST` é utilizado quando o formulário envia dados que devem ser processados para **criar ou modificar registros** no sistema (ex: cadastro de usuários, finalizações de compras, uploads de arquivos)
+
+#### Como os Métodos Funcionam no PHP(`$_GET`, `$_POST`, ``$_SERVER`) -As SuperGlobais 
 
