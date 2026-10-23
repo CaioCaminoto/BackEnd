@@ -1,7 +1,5 @@
 # Curso BackEnd -  1º Semestre - 105h
 
-2400 LINHAS? // 14/10
-
 Prof. Diogo Barbosa
 
 Escola SENAI Americana 
@@ -1442,17 +1440,17 @@ flowchart LR
 
 **Tema:** Gestão de Estado com HTTP, Ciclo de Vida da Sessão(`$_SESSION`), Cookies, Hashing de Criptografia, Middlewares de Autenticação
 
-#### **O Pr
-otocolo HTTP: Como ele lembra de você?**
+#### **O Protocolo HTTP: Como ele lembra de você?**
 
-O protocolo HTTP é totalmente **STATELESS (sem armazenamento de estado)**. Isso significa que o servidor web trata cada requisição HTTP de forma isolada, como se fosse a primeira vez que ele estivesse interagindo com o usuário do sistema.
+O Protocolo HTTP é totalmente **STATELESS (sem aramazenamento de estado)**. Isso Significa que o servidor web trata cada requisição HTTP de forma isolada, como se fosse a primeira vez que ele estivesse interagindo com o usuário do sistema.
 
-Para resolver esse problema sem obrigar o usuário a digitar o login e a senha cada clique fazemos o seguinte:
-1. Ao fazer o login bem-sucedido, o servidor entrega ao cliente uma *comanda/pulseira VIP numerada* (um identificados de sessão única e aleatória).
-2. O navegador armazena essa comanda/pulseira em um **Cookie**.
-3. A cada nova página solicitada, o navegador apresenta automaticamente esse pulseira no cabeçalho da requisição.
-4. O PHP lê o número da comanda/pulseira, localiza os dados do usuário, armaznados na memória do servidor (`$_SESSION`) e reconhece quem é ele!
+Para resolver esse problema sem obrigar o usuário a digitar o login e senha novamente a cada clique fazemos o seguinte:
+1. Ao fazer o login bem-sucedido, o servidor entrega ao cliente uma **comanda/pulseira VIP numerada* (um identificados de sessão única e aleatória).
+2. O navegador aramazena essa comanda/pulseira em um **Cookie**.
+3. A cada nova página solicitada, o navegador apresenta automaticamente essa pulseira no cabeçalho da requisição
+4. O PHP lê o número da comanda/pulseira, localiza os dados do usuário armazenados na memória do servidor(`$_SESSION`) e reconhece quem é ele!
 
+**Situação sem Armazenamento de Cookie e SESSION**
 
 ```mermaid
 sequenceDiagram
@@ -1468,7 +1466,6 @@ sequenceDiagram
     Note over Servidor: Servidor: "Quem é você? Nunca te vi antes!"
     Servidor -->> Cliente: 4. HTTP 302 Redirect -> login.php
 ```
-
 
 **Situação com Armazenamento de Cookie e SESSION**
 
@@ -1495,12 +1492,11 @@ sequenceDiagram
 
 #### **Como funciona o COOKIE HTTP**
 
-Um **Cookie** é um pequeno arquivo de texto (geralmente limitado a 4KB) gravado pelo navegador e pedido do servidor através do cabeçalho de resposta ``Set-Cookie`.
+Um **Cookie** é um pequeno arquivo de texto (geralmente limitado a 4KB) gravvado pelo navegador a pedido do servidor através do cabeçalho de resposta `Set-Cookie`.
 
-**Cookies podem vazar informações?**
+**Cookies podem vazar informação?**
 
-Sim, se um cookie de sessão for configurado com parâmetros desprotegidos, qualquer script malicioso injetado na página (XSS) podem roubar a ssessão do usuário logado.
-
+Sim, se um cookie de sessão for configurado com parâmetros desprotegidos, qualquer script malicioso injetado na página (XSS) pode roubar a sessão do usuário logado.
 
 **Para evitar problemas de Segurança em Cookies:**
 
@@ -1510,9 +1506,9 @@ Sim, se um cookie de sessão for configurado com parâmetros desprotegidos, qual
 | **`SameSite=Lax`** | Restringe o envio do cookie apenas a navegações originadas do próprio domínio. | **Protege contra ataques CSRF** (*Cross-Site Request Forgery*), impedindo que links externos forjem ações logadas. |
 | **`Secure`** | Garante que o cookie só seja transmitido em conexões criptografadas com **HTTPS**. | Impede que bisbilhoteiros em redes Wi-Fi públicas interceptem a sessão em trânsito (*Man-in-the-Middle*). *(Em ambiente local de desenvolvimento sem SSL, pode ser desativado temporariamente).* |
 
-#### **O Ciclo de Vida da SESSÃO em PHP: `$_SESSION` no Servidor**
+#### **O Cilco de Vida da SESSÃO em PHP: `$_SESSION` no Servidor**
 
-Enqunto os cookies residem no Navegador, os dados da sessão ficam armazenados com  **privacidade total dentro do servidor** (em arquivos temporários na memória).
+Enqunto os cookies residem no Navegador, os dados da sessão ficam aramazenados com  **privacidade total dentro do servidor** (em arquivos temporários na memória).
 
 ```mermaid
 flowchart TB
@@ -1578,7 +1574,6 @@ O padrão de Criptografia Moderno é o **Argon2id**, complementado pelo **Bcrypt
 2. **Salt Automático e Aleatório**: A cada execução, a função gera um vetor de `salt` unico de 16 bytes. Mesmo que 2 pessoas tenham o mesma senha, os hashes gerados serão completamentes diferentes!
 3. **Custos Ajustáveis**: É possivel calibrar quanto tempo e quanta memória o algoritmo levará para calcular o hash.
 
-
 **Sintaxe Profissional de Cryptografia Moderna**
 
 ```php
@@ -1601,12 +1596,12 @@ if(password_verify($senha_informada, $hashDoBanco)){
 
 >[!Aviso]
 >Nunca tente fazer (password_hash($senha) === $hashDoBanco)
->Como o `password_hash`gera um salt aleatório a cada milisegundo, a comparação por igualdade **sempre dará falso**
+>Como o `password_hash`gera um salt aleatírio a cada milisegundo, a comparação por igualdade **sempre dará falso**
 >A Verificação deve ser feita **exclusivamente com a função nativa `password_verify()`
 
 #### **Arquitetura de Autenticação: Middleware**
 
-para impedir que visitantes não logados acessem páginas privadas (como dashboard.php ou relatorios.php), criamos interceptadores chamados **Guard (Middlewares de Proteção)**.
+para inpedir que visitantes não logados acessem páginas privadas (como dashboard.php ou relatorios.php), criamos interceptadores chamados **Guard (Middlewares de Proteção)**.
 
 ```mermaid
 flowchart TD
@@ -1626,13 +1621,16 @@ require_onde __DIR__ . "/src/guard.php";
 ```
 Se a pessoa não estiver autenticas ou não tiver o perfil de acesso, ela é expulsa antes mesmo que qualquer bytes de HTML seja renderizado
 
-### Semana 11 - Programação Orientada a Objetos em PHP
 
-**Tema:** Pradigma de POO, Os 4 pilares da Orientação Orientada a Objeto (Abstração, Encapsulamento, Herança e Polimorfismo), Classes e Instância, Construtores, Modificadores de Acesso (Private, Protected, Public) e modelagem de dados.
+---
 
-#### **Do Procedural á Orientação a Objetos**
+### Semana 11 - Programação Orientada a Objetos Em PHP
 
-Manipulação de variáveis, laços de repetição e funções de forma linear, ou seja, todo o código é escrito em um monobloco (`código em um único arquivo de programação`). Essa abordagem resolve problemas lineares com maestria, mas colapsa rapidamente quando sistemas crescem em escala, complexidade e criticidade de regras de negócio.
+**Tema:** Paradigma de POO, Os 4 pilares da Orientação a Objetos(Abstração, Encapsulamento, Herança e Polimorfismo), Classes e Instância, Construtores, Modificadores de Acesso (Private, Protected, Public) e Modelagem de Dados.
+
+#### **Do Procedural à Orientação a Objetos**
+
+Manipulação de variáveis, laços de repetição e funções de forma linear, ou seja, todo o código é escrito em um monobloco(`código em um único arquivo de programação`). Essa abordagem resolve problemas lineares com maestria, mas colapsa rapidamente quando sistemas crescem em escala, complexidade e criticidade de regras de negócio. 
 
 Na programação procedural:
 
@@ -1652,11 +1650,11 @@ Na **POO**, em vez de separar funções de um lado e dados soltos do outro, nós
 | **Proteção de Dados** | Nenhuma (dados globais ou em arrays abertos) | Alta (Encapsulamento com atributos privados) |
 | **Reuso de Código** | Inclusão de scripts (`require_once`) e cópia | Herança (`extends`), Composição e Interfaces |
 | **Tratamento de Variações** | Blocos gigantes de `switch` e `if/else` | Polimorfismo e Classes Abstratas |
-| **Manutenibilidade** | Complexa à medida que a base de código cresce | Alta, modular, testável e pronta para arquiteturas corporat |
+| **Manutenibilidade** | Complexa à medida que a base de código cresce | Alta, modular, testável e pronta para arquiteturas corporativas (MVC, DDD, Clean Architecture) |
 
 #### **Anatomia de uma Classe**
 
-- **Classe**: é molde, a planta baixa, o projeto de engenharia. Ela descreve quais atributos(dados) e comportamentos(métodos) as entidades daquele tipo possuirão. ela reside no código-fonte e não ocupa espaço dinâmico de dados na memória.
+- **Classe**: é molde, a planta baixa, o projeto de engenharia. Ela descreve quais atributos(dados) e comportamentos(métodos) as entidades daquele tipo possuirão. ela reside no código-fonte e não ocupa espaço dinâmico de dadso na memória.
 - **Objeto**: é o produto final construido a partir do molde, uma instância real, palpável e viva alocada na memória do servidor durante o ciclo de execução. 
 
 ```mermaid
@@ -1725,18 +1723,19 @@ quadrantChart
 ```
 
 1. **Pilar 1: Abstração**
-**Definição:** Capacidade de filtrar detalhes irrelevantes e focar estritamente nas caracteristicas e comportamentos essenciais da entidade para o contexto do software que está sendo construtido. 
+**Definição:** Capacidade de filtrar etalhes irrelevantes e focar estritamente nas caracteristicas e comportamentos essenciais da entidade para o contexto do software que está sendo construtido. 
 *Exemplo*: Para um sistema bancário, o que importa em um cliente é seu nome, CPF e renda. Sua cor favorita ou altura são abstrações e podem ser descartadas
 
 2. **Pilar 2: Encapsulamento**
-**Definição:** Blindagem dos estudo interno do objeto. Os atributos devem ser protegidos contra acesso ou modificações diretamente do mundo exterior. Alterações no estado só ocorrem através de métodos públicos que validam regras de negócio e mantêm invariantes contábeis. 
+**Definição:** Blindagem dos estdo interno do objeto. Os atributos devem ser protegisdo contra acesso ou modificações diretamente do mundo exterior. Alterações no estado só ocorrem através de métodos públicos que validam regras de negócio e mantêm invariantes contábeis. 
 
 3. **Pilar 3: Herança**
 **Definição**: Mecanismo pelo qual uma classe filha (subclasse) herda atributos e comportamentos de uma classe ancestral (superclasse), promovendo o reuso de códigos e estabelecendo uma relação do tipo **É UM**
 *Exemplo:* um Cachorro(subclasse) é um Mamífero(superclasse) -> porque ele herda características da classe dos Mamíferos
 
 4. **Pilar 4: Polimosrfismo**
-**Definição:** Princícipo que permite que classes filhas diferentes respondam a mesma chamada de método com implementações especializadas e comportamentos distintos. O Chamador não precisa saber qual subclasse exata está executando, apena confia que o método cumprirá o contrato. 
+**Definição:** Princícipo que permite  que classes filhas diferentes respondam a mesma chamada de método com implementações especializadas e comportamentos distintos. O Chamador não precisa saber qual subclasse exata está executando, apena confia que o método cumprirpa o contrato. 
+
 
 #### **Encapsulamento Rigoroso**
 
@@ -1865,7 +1864,7 @@ $contaCorrente->getSaldo(); // Retorna 897,50
 $contaPoupanca->getSaldo(); // Retorna 400,00
 ```
 
->observer que ambas as classes implementam o método `sacar()`de maneira doferente, respeitando as regras de negócio específicas de cada tipo de conta.
+>observer que ambas as classes implementam o método `sacar()`de maneira doferente, respeitando as regras de negócio espefícicas de cada tipo de conta.
 
 **Polimosrfismo:** O método `sacar()` na classe ContaBancaria demonstra o polimorfismo em ação
 
@@ -1951,9 +1950,8 @@ $produtos = $pdo->query("SELECT * FROM produtos")->fetchAll();
 **Os Problemas Críticos do Código Espaguete**
 
 1. *Acoplamento Máximo*: Se você mudar o layout visual, corre o risco de quebrar uma query SQL. Se alterar uma coluna do banco, precisa reescrever o arquivo visual.
-2. *Fragilidade de Inclusões (`required_once`)*: Se um arquivo for movido de pasta, todas as chamadas `require_onde`quebram com erros fatais de arquivo não encontrado.
+2. *Fragilidade de Inclusões (`required_once`)*: Se um arquivo fro movido de pasta, todas as chamadas `require_onde`quebram com erros fatais de arquivo não encontrado.
 3. *Exposição de Segurança*: Se os arquivos PHP estiverem na raiz acessível do servidor web, qualquer usuário malicioso pode tentar acessar scripts internos digitando `http://site.com/config/conexao.php`
-
 
 ```mermaid
 flowchart TD
@@ -1961,10 +1959,11 @@ flowchart TD
         arq["produtos.php<br/> * Consultas SQL Diretas<br/> * HTML e TAGs CSS<br/>*10 required_once manuais"]
     end
 
-    style Caotico fill:#fee2e2, stroke:#dc2626, stroke-width:2px, color:#
+    style Caotico fill:#fee2e2, stroke:#dc2626, stroke-width:2px, color:#7f1d1d
 
 ```
-#### **A Tríade Model-View-Conroller 
+
+#### **A Tríade Model-View-Controller (MVC) no BackEnd**
 
 O padrão **MVC (Model-View-Controller)** é a arquitetura de software corporativa mais consagrada da história do desenvolvimento. Seu objetivo é separar as preocupações do sistema em **3 Camadas Bem Definidas**.
 
@@ -1972,4 +1971,112 @@ O padrão **MVC (Model-View-Controller)** é a arquitetura de software corporati
 - **O que Faz:** Representa as entidade do mundo real e gerencia a lógica de dados, persistência e regras de Negócio.
 - **O que Sabe:** Sabe como conectar ao banco de dados, executar Prepared Statement, validar as Regras de Negócio.
 - **O que NUNCA Faz:** Nunca emite comandos `echo`, nunca gera tags HTML e nunca lê dados da SuperGlobal `$_POST` ou `$_GET`
+
+2. **View (Camada Visualização e Apresentação)**
+- **O que Faz:** Renderizza a interface gráfica do usuário (geralmente HTML, CSS e JSON).
+- **O que Sabe:** Recebe variáveis simples enviadas pelo Controller e as formata visualmente, aplicando sanitizxação ativa conra XSS(`htmlspecialchars`).
+- **O que NUNCA Faz:** Nunca executa consultas SQL, nunca faz regras de negócios complexas e nunca redirecionas requisições via `header()`
+
+3. **Controller (Camada de Controle e Orquestração)**
+- **O que Faz:** Atua como maestro da aplicação. Recebe a requisição do usuário , valida as entradas, aciona a camdaModel para obter ou persistir informações e seleciona a View correspondente para renderizar a resposta. 
+- **O que Sabe:** Sabe qual Model chamar e quela View devolver.
+- **O que NUNCA Faz:** Não deve conter regra constábeis complexas (elas pertencem ao Model) e não deve escrever HTML diretamente. 
+
+```mermaid
+flowchart TD
+
+    subgraph MVC ["Padrão Arquitetural MVC (Responsabilidade Única)"]
+        controller["Controller<br/>(Maestro do Fluxo)"]
+        model["Model<br/>(Regras de Negócio & Banco)"]
+        view["View<br/>(Apresentação Visual Limpa)"]
+
+        controller -->|"1. Pede dados"| model
+        model -->|"2. Devolve entidades"| controller
+        controller -->|"3. Injeta dados"| view
+    end
+
+    style controller fill:#e0e7ff,stroke:#4338ca,stroke-width:2px,color:#312e81
+    style model fill:#dcfce7,stroke:#15803d,stroke-width:2px,color:#14532d
+    style view fill:#fef3c7,stroke:#d97706,stroke-width:2px,color:#78350f
+```
+
+```mermaid
+sequenceDiagram
+    autonumber
+    actor Cliente as Navegador do Usuário
+    participant FC as Front Controller (index.php)
+    participant View as View (listar.php)
+    participant Router as Roteador HTTP
+    participant Ctrl as ProdutoController
+    participant Model as Produto (Model)
+    participant BD as Banco de Dados (PostgreSQL)
+
+    Cliente->>FC: GET /produtos
+    FC->>Router: despachar("GET", "/produtos")
+    Router->>Ctrl: executar listar()
+    Ctrl->>Model: listarTodos()
+    Model->>BD: SELECT * FROM produtos...
+    BD-->>Model: Retorna registros relacionais
+    Model-->>Ctrl: Retorna array de entidades
+    Ctrl->>View: renderizar("produtos/listar", dados)
+    View-->>Cliente: Retorna HTML estruturado e sanitizado
+```
+
+
+#### **O Gerenciador Composer e o AutoLad PSR-4**
+
+Imagine um projeto corporativvo moderno com mais de 300 classes. Ter que escrever 300 linhas de `required_once` em cada arquivo tornaria o desenvolvimento inviável. É aqui que entra o **Composer** e a especificação **PSR-4**.
+
+**O que é o Composer?**
+
+O Composer é o gerenciador de dependências oficiais da linguagem PHP. Ele desempenha duas funções vitais:
+
+1. Baixar bibliotecas de terceiros a partir do repositório central Packagist (como bibliotecas de envio de e-mail, geradores de PDF e Frameworks).
+2. Gerar o Autoloader Automático: O composer lê as classes criadas por você no seu projeto e as disponibiliza automaticamente no código sem a necessidade de nenhum `require`
+
+**A Especificação PSR-4 (PHP Stardard Recommendation 4)**
+
+A especificação internacional **PSR-4** fala que:
+
+> O namespace de uma classe deve espelhar exatamente a estrutura de diretórios do disco físico onde o arquivo está gravado.
+
+Exemplo prático:
+- Se declaramos o namespace: `namespace App\Controller; class ProdutoController{}`;
+- E configuramos no Composer que o prefixo `App\\`  aponta para a pasta `src/`.
+- O PHP localiza fisicamente o arquivo em `src/Controllers/ProdutoController.php`
+
+**Configurando o `composer.json`**
+
+```json
+{
+    "name": "senai/supply-mvc",
+    "description": "Sistema de Gestão de Insumos Industriais",
+    "type": "project",
+    "autoload": {
+        "psr-4": {
+            "App\\": "src/"
+        }
+    }
+}
+```
+
+```mermaid
+flowchart LR
+    comp["Composer<br/>(composer.json)"] -->|"composer dump-autoload"| auto["vendor/autoload.php"]
+    
+    codigo["use App\\Models\\Produto;<br/>$p = new Produto();"] -->|"PHP intercepta a chamada"| auto
+    auto -->|"Mapeia 'App\\' para 'src/'"| disco["Carrega do disco:<br/>src/Models/Produto.php"]
+
+    style comp fill:#fed7aa,stroke:#ea580c,stroke-width:2px,color:#7c2d12
+    style auto fill:#bbf7d0,stroke:#16a34a,stroke-width:2px,color:#14532d
+    style disco fill:#e0e7ff,stroke:#4338ca,stroke-width:2px,color:#312e81
+```
+
+> [!IMPORTANT]
+> **Comando Mandatório de Regeneração:**  
+> Sempre que você criar o arquivo `composer.json` ou alterar a estrutura de namespaces, execute no terminal do VS Code:  
+> `composer dump-autoload -o`  
+> O parâmetro `-o` gera o mapa de classes otimizado para máxima performance.
+
+
 
