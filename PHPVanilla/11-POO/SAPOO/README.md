@@ -17,3 +17,7 @@ SAPOO/
 ├── app_banco.php                               <- Simulador visual de operações bancárias
 └── README.md                                   <- Documentação e testes
 ```
+
+## Criação das Exceções de Domínio
+
+## Entidade de Titularidade com Imutabilidade (`readonly`)
