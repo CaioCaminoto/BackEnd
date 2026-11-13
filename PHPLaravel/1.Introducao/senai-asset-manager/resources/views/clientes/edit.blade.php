@@ -22,6 +22,14 @@
     <div class="card">
         <h1>⚙️ {{ $titulo }}</h1>
 
+        @if($errors->any())
+            <div style="background:#7f1d1d; border:1px solid #dc2626; color:#fecaca; padding:12px; border-radius:6px; margin-bottom:16px;">
+                @foreach($errors->all() as $erro)
+                    <div>⚠️ {{ $erro }}</div>
+                @endforeach
+            </div>
+        @endif
+
         <!-- Formulario POST com simulacao Method Spoofing para PUT -->
         <form action="{{ route('clientes.update', $cliente['id']) }}" method="POST">
             @csrf
@@ -29,7 +37,7 @@
 
             <div class="form-group">
                 <label for="razao_social">Razão Social</label>
-                <input type="text" id="razao_social" name="razao_social" value="{{ $cliente['razao_social'] }}" required>
+                <input type="text" id="razao_social" name="razao_social" value="{{ old('razao_social', $cliente['razao_social']) }}" required>
             </div>
 
             <div class="form-group">

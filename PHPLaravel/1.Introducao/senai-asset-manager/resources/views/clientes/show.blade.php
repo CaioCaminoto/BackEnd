@@ -21,6 +21,10 @@
     <div class="card">
         <h1>📋 {{ $titulo }}</h1>
 
+        @if(session('sucesso'))
+            <div style="background:#14532d; border:1px solid #16a34a; color:#bbf7d0; padding:12px; border-radius:6px; margin-bottom:16px;">✅ {{ session('sucesso') }}</div>
+        @endif
+
         <div class="item-info"><span>Identificador:</span><strong>#{{ $cliente['id'] }}</strong></div>
         <div class="item-info"><span>Razão Social:</span><strong>{{ $cliente['razao_social'] }}</strong></div>
         <div class="item-info"><span>CNPJ Corporativo:</span><strong>{{ $cliente['cnpj'] }}</strong></div>

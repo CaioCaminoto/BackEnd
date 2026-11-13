@@ -49,6 +49,7 @@
             <a href="{{ route('clientes.setor', 'autopeças') }}">Autopeças</a>
             <a href="{{ route('clientes.setor', 'usinagem') }}">Usinagem</a>
             <a href="{{ route('clientes.setor', 'robótica') }}">Robótica</a>
+            <a href="{{ route('clientes.setor', 'siderurgia') }}">Siderurgia</a>
         </div>
 
         <table>

@@ -1,5 +1,6 @@
 <?php
 
+
 namespace App\Http\Controllers;
 
 use Illuminate\Contracts\View\View;
@@ -7,7 +8,7 @@ use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use PhpParser\Node\Expr\FuncCall;
 
-// Classe resposnavel pela gestão dos models em realação a interface visual
+// classe responsavel pela gestão dos models em relação a interface visual
 
 class AtivoController extends Controller
 {
@@ -23,18 +24,20 @@ class AtivoController extends Controller
 
         return view("ativos.index", [
             "metricas" => $metricas,
-            "titulo"    => "Painel Geral de Ativos Industriais"
+            "titulo"   => "Painel Geral de Ativos Industriais"
         ]);
     }
 
-    //método para verificar o status e diagnostico do servidor em formato json
+    // métodos para verificar o status e diagnostico do servidor em formato json
+
     public function status(): JsonResponse {
         return response()->json([
             "plataforma" => config("app.name"),
-            "ambiente"  => config("app.env"),
+            "ambiente"   => config("app.env"),
             "versao_php" => PHP_VERSION,
             "status" => "ONLINE",
             "timestamp" => now()->toIso8601String()
+
         ]);
     }
 }

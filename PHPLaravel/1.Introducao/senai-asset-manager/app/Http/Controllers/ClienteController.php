@@ -25,41 +25,41 @@ class ClienteController extends Controller
      */
     public function create() : View
     {
-        return view("clientes.create",[
+        return view("clientes.create", [
             "titulo" => "Novo Cadastro de Parceiro Industrial"
         ]);
     }
 
     /**
-     * Salva o os dados do novo cliente no banco de dados usando Request e dando uma response
+     * Salva os dados do novo cliente no banco de dados usando request e dando uma response 
      */
     public function store(Request $request) : RedirectResponse
     {
         $dados = $request->validate([
-            "razao_social"  => "required | min:3",
-            "cnpj"          => "required | unique:clientes,cnpj", //
-            "setor"         => "required"
+            "razao_social" => "required|min:3",
+            "cnpj"         => "required|unique:clientes,cnpj", // 
+            "setor"        => "required"
         ]);
-        //fazer o cadastro no banco
+        // fazer o cadastro no banco
         Cliente::create($dados);
         return redirect()->route("clientes.index")->with("sucesso", "Cliente Cadastrado com sucesso");
     }
 
     /**
-     * Exibir os detalhes de um Cliente especifico
+     * Exibir os detalhes de um cliente especifico 
      */
     public function show(int $id): View
     {
-        $cliente = Cliente::findOrFail($id);// manda uma mensagem de erro caso não encontrado
+        $cliente = Cliente::findOrFail($id); // manda uma mensagem de erro caso não encontrado 
 
         return view("clientes.show",[
-            "cliente"   => $cliente,
-            "titulo"    => "Ficha Técnica: {$cliente["razao_social"]}"
+            "cliente" => $cliente,
+            "titulo"  => "Ficha Técnica: {$cliente["razao_social"]}"
         ]);
     }
 
     /**
-     * Exibir um Formulario com os dados de um cliente especifico para atualização
+     * Exibir um formulario com os dados de um cliente especifico para atualização 
      */
     public function edit(string $id): View
     {
@@ -67,21 +67,24 @@ class ClienteController extends Controller
 
         return view("clientes.edit", [
             "cliente"   => $cliente,
-            "titulo"    => "Editar Parceiro {$cliente["razao_social"]}"
+            "titulo"    => "Editar parceiro {$cliente ["razao_social"]}"
         ]);
     }
 
     /**
-     * Atualizar os dados do cliente utilizando MEthod Spoofing (PUT)
+     * Atualizar os dados do cliente utilizando method spoofing(PUT)
      */
-    public function update(Request $request, int $id): RedirectResponse {
+    public function update(Request $request, int $id):
+    RedirectResponse{
         $dados = $request->validate([
-            "razao_social"  => "required | min:3",
+            "razao_social"  => "required|min:3",
             "setor"         => "required"
         ]);
         Cliente::findOrFail($id)->update($dados);
-        return redirect()->route("clientes.show", $id)->with("sucesso", "Dados atualizados com sucesso");
+        return redirect()->route("clientes.show", $id)->with
+        ("sucesso", "Dados atualizados com sucesso");
     }
+
 
     /**
      * Remove the specified resource from storage.
@@ -89,10 +92,11 @@ class ClienteController extends Controller
     public function destroy(int $id): RedirectResponse
     {
         Cliente::findOrFail($id)->delete();
-        return redirect()->route("clientes.index")->with("sucesso", "Parceiro removido do sistema");
+        return redirect()->route("clientes.index")->with("sucesso", "parceiro removido do sistema");
+
     }
 
-    //Filtargem de Clientes/Empresas por setor
+    //filtragem de Clintes/Empresas por setor
     public function filtrarPorSetor (?string $setor = null): View {
         $consulta = Cliente::query();
         if($setor !== null) {
@@ -101,7 +105,8 @@ class ClienteController extends Controller
 
         return view("clientes.index", [
             "clientes"  => $consulta->get(),
-            "titulo"    => $setor ? "Setor: ".ucfirst($setor) : "Todos os Setores"
+            "titulo"    => $setor ? "Setor: ".ucfirst($setor) :
+            "Todos os Setores"
         ]);
     }
 }

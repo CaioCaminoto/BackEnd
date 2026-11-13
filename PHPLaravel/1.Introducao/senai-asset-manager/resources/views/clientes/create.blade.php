@@ -22,13 +22,21 @@
     <div class="card">
         <h1>📝 {{ $titulo }}</h1>
 
+        @if($errors->any())
+            <div style="background:#7f1d1d; border:1px solid #dc2626; color:#fecaca; padding:12px; border-radius:6px; margin-bottom:16px;">
+                @foreach($errors->all() as $erro)
+                    <div>⚠️ {{ $erro }}</div>
+                @endforeach
+            </div>
+        @endif
+
         <!-- Envio POST obrigatorio com diretiva @csrf -->
         <form action="{{ route('clientes.store') }}" method="POST">
             @csrf
 
             <div class="form-group">
                 <label for="razao_social">Razão Social</label>
-                <input type="text" id="razao_social" name="razao_social" required placeholder="Ex.: Parker Hannifin do Brasil">
+                <input type="text" id="razao_social" name="razao_social" value="{{ old('razao_social') }}" required placeholder="Ex.: Parker Hannifin do Brasil">
             </div>
 
             <div class="form-group">
